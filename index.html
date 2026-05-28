@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pomoro — Temporizador Pomodoro</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <div class="noise"></div>
+
+  <header>
+    <span class="logo">pomo<em>ro</em></span>
+    <span class="session-label">sesión <strong id="session-count">1</strong></span>
+  </header>
+
+  <main>
+    <div class="ring-wrap">
+      <svg class="ring" viewBox="0 0 220 220">
+        <circle class="ring-bg"   cx="110" cy="110" r="96" />
+        <circle class="ring-prog" cx="110" cy="110" r="96" id="ring-prog" />
+      </svg>
+      <div class="timer-center">
+        <span class="mode-tag" id="mode-tag">ENFOQUE</span>
+        <span class="time"     id="time-display">25:00</span>
+        <span class="next-tag" id="next-tag">↓ descanso en 25:00</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn-icon" id="btn-reset" title="Reiniciar">⟳</button>
+      <button class="btn-main" id="btn-toggle">Iniciar</button>
+      <button class="btn-icon" id="btn-skip"  title="Saltar">⇥</button>
+    </div>
+
+    <div class="modes">
+      <button class="mode-pill active" data-work="25" data-break="5">25 / 5</button>
+      <button class="mode-pill"        data-work="50" data-break="10">50 / 10</button>
+      <button class="mode-pill"        data-work="90" data-break="20">90 / 20</button>
+    </div>
+  </main>
+
+  <footer>portafolio-oliver / index.html</footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
