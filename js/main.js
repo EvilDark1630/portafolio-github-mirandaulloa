@@ -59,6 +59,9 @@ function tick() {
     return;
   }
   remaining--;
+
+  timeDisplay.style.color = remaining <= 10 ? 'var(--accent)' : '';
+
   updateUI();
 }
 
