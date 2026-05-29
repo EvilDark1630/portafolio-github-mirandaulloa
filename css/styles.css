@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #f5f0e8;
+  --surface:   #ede7d9;
+  --border:    #d4c9b0;
+  --text:      #1a1208;
+  --muted:     #8a7d65;
+  --accent:    #c0392b;
+  --accent2:   #e67e22;
+  --ring-size: 603px; /* 2 * PI * 96 ≈ 603 */
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grain texture overlay */
+.noise {
+  pointer-events: none;
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.35;
+  z-index: 0;
+}
+
+header, main, footer { position: relative; z-index: 1; }
+
+/* ---------- Header ---------- */
+header {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.logo em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.session-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
+.session-label strong { color: var(--accent); }
+
+/* ---------- Ring ---------- */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.ring-wrap {
+  position: relative;
+  width: 220px;
+  height: 220px;
+}
+
+.ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ring-bg {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 6;
+}
+
+.ring-prog {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: var(--ring-size);
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear, stroke 0.4s;
+}
+
+.ring-prog.break-mode { stroke: var(--accent2); }
+
+.timer-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.mode-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.time {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  line-height: 1;
+}
+
+.next-tag {
+  font-size: 0.58rem;
+  color: var(--border);
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-main {
+  background: var(--text);
+  color: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-main:hover    { background: var(--accent); }
+.btn-main:active   { transform: scale(0.96); }
+.btn-main.running  { background: var(--accent); }
+
+.btn-icon {
+  background: none;
+  border: 1.5px solid var(--border);
+  color: var(--muted);
+  font-size: 1.1rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, transform 0.1s;
+  display: grid;
+  place-items: center;
+}
+
+.btn-icon:hover  { border-color: var(--text); color: var(--text); }
+.btn-icon:active { transform: scale(0.94); }
+
+/* ---------- Mode pills ---------- */
+.modes {
+  display: flex;
+  gap: 8px;
+}
+
+.mode-pill {
+  background: none;
+  border: 1.5px solid var(--border);
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.04em;
+}
+
+.mode-pill:hover  { border-color: var(--text); color: var(--text); }
+.mode-pill.active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+
+/* ---------- Footer ---------- */
+footer {
+  font-size: 0.68rem;
+  color: var(--border);
+  letter-spacing: 0.06em;
+  position: fixed;
+  bottom: 20px;
+}
+
+/* ---------- Animations ---------- */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+.time.ticking { animation: pulse 1s ease-in-out infinite; }
