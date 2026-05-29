@@ -212,6 +212,7 @@ main {
   background: var(--text);
   border-color: var(--text);
   color: var(--bg);
+   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
 }
 
 /* ---------- Footer ---------- */
